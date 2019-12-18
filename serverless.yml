@@ -14,7 +14,7 @@ custom:
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
-  tableName: ${self:custom.stage}-notes
+  tableName: ${self:custom.stage}-certs
 
 provider:
   name: aws
@@ -43,11 +43,11 @@ provider:
       # Restrict our IAM role permissions to
       # the specific table for the stage
       Resource:
-        - "Fn::GetAtt": [NotesTable, Arn]
+        - "Fn::GetAtt": [CertsTable, Arn]
 
 functions:
   # Defines an HTTP API endpoint that calls the main function in create.js
-  # - path: url path is /notes
+  # - path: url path is /certs
   # - method: POST request
   # - cors: enabled CORS (Cross-Origin Resource Sharing) for browser cross
   #     domain api call
@@ -56,51 +56,51 @@ functions:
     handler: create.main
     events:
       - http:
-          path: notes
+          path: certs
           method: post
           cors: true
           authorizer: aws_iam
   get:
     # Defines an HTTP API endpoint that calls the main function in get.js
-    # - path: url path is /notes/{id}
+    # - path: url path is /certs/{id}
     # - method: GET request
     handler: get.main
     events:
       - http:
-          path: notes/{id}
+          path: certs/{id}
           method: get
           cors: true
           authorizer: aws_iam
   list:
     # Defines an HTTP API endpoint that calls the main function in list.js
-    # - path: url path is /notes
+    # - path: url path is /certs
     # - method: GET request
     handler: list.main
     events:
       - http:
-          path: notes
+          path: certs
           method: get
           cors: true
           authorizer: aws_iam
   update:
     # Defines an HTTP API endpoint that calls the main function in update.js
-    # - path: url path is /notes/{id}
+    # - path: url path is /certs/{id}
     # - method: PUT request
     handler: update.main
     events:
       - http:
-          path: notes/{id}
+          path: certs/{id}
           method: put
           cors: true
           authorizer: aws_iam
   delete:
     # Defines an HTTP API endpoint that calls the main function in delete.js
-    # - path: url path is /notes/{id}
+    # - path: url path is /certs/{id}
     # - method: DELETE request
     handler: delete.main
     events:
       - http:
-          path: notes/{id}
+          path: certs/{id}
           method: delete
           cors: true
           authorizer: aws_iam
