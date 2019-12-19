@@ -14,13 +14,10 @@ export async function main(event, context) {
     },
     // 'UpdateExpression' defines the attributes to be updated
     // 'ExpressionAttributeValues' defines the value in the update expression
-    UpdateExpression:
-      "SET certName = :certName, vendor = :vendor, level = :level, attachment = :attachment",
+    UpdateExpression: "SET certName = :certName, attachment = :attachment",
     ExpressionAttributeValues: {
       ":attachment": data.attachment || null,
-      ":certName": data.certName || null,
-      ":vendor": data.vendor || null,
-      ":level": data.level || null
+      ":certName": data.certName || null
     },
     // 'ReturnValues' specifies if and how to return the item's attributes,
     // where ALL_NEW returns all attributes of the item after the update; you
